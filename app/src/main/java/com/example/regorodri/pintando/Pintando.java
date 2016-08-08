@@ -17,16 +17,13 @@ import android.widget.Toast;
 
 
 public class Pintando extends Activity {
-    private Button btnGuardar;
-    private Button btnBorrar;
     RelativeLayout firma;
-    DrawingView dv;
+    DrawingView dv, view;
     private Paint mPaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        btnGuardar = (Button) findViewById(R.id.btnGuardar);
 
         dv = new DrawingView(this);
 
@@ -54,33 +51,15 @@ public class Pintando extends Activity {
         // Do something in response to button click
         Log.w("click", "clickkkkkkkkkkkkkkkkkkkkk en borrar");
         Toast.makeText(getApplicationContext(), "CLick en Borrar", Toast.LENGTH_SHORT).show();
-    }/*
-        setDrawingCacheEnabled(false);
-        // don't forget that one and the match below,
-        // or you just keep getting a duplicate when you save.
 
-        onSizeChanged(width, height, width, height);
-        invalidate();
-
-        setDrawingCacheEnabled(true);
+        dv.clearDrawing();
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        width = w;      // don't forget these
-        height = h;
-
-        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-    }
-*/
     // Dibujar Clase DRAWINGVIEW
     public class DrawingView extends View {
 
-        public int width;
-        public int height;
+        public int width=0;
+        public int height=0;
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
@@ -101,6 +80,16 @@ public class Pintando extends Activity {
             circlePaint.setStyle(Paint.Style.STROKE);
             circlePaint.setStrokeJoin(Paint.Join.MITER);
             circlePaint.setStrokeWidth(4f);
+        }
+
+        public void clearDrawing() {
+            setDrawingCacheEnabled(false);
+
+            //onSizeChanged(width, height, width, height);
+            onSizeChanged(width, height, width, height);
+            invalidate();
+
+            setDrawingCacheEnabled(true);
         }
 
         @Override
